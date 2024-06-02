@@ -4,7 +4,7 @@ const Navbar = () => {
     <div className="navbar static z-40 bg-slate-400 ">
       <img src="https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg?auto=compress&cs=tinysrgb&w=600" className="w-14 h-14 rounded-full" alt="" />
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Teach:able</a>
+        <a className="btn btn-ghost uppercase  text-2xl font-bold bg-gradient-to-r from-orange-700 via-blue-500 to-green-400 text-transparent bg-clip-text bg-300% animate-gradient">Teach:able</a>
       </div>
       <div className="flex-none gap-2">
         <ul className="menu menu-horizontal px-1">
