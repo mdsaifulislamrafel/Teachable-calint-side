@@ -2,7 +2,7 @@
 
 const Navbar = () => {
   return (
-    <div className="navbar static z-40 bg-base-100">
+    <div className="navbar fixed z-40 bg-slate-400">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Teach:able</a>
       </div>
