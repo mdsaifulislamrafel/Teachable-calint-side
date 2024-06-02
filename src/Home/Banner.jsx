@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 const Banner = () => {
     const [currentSlider, setCurrentSlider] = useState(0);
-    const carouselImages = ['https://source.unsplash.com/1200x540/?nature', 'https://source.unsplash.com/1200x540/?hill', 'https://source.unsplash.com/1200x540/?mountain', 'https://source.unsplash.com/1200x540/?river', 'https://source.unsplash.com/1200x540/?sea'];
+    const carouselImages = ['https://images.pexels.com/photos/5427659/pexels-photo-5427659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'https://images.pexels.com/photos/5428002/pexels-photo-5428002.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', 'https://images.pexels.com/photos/5212648/pexels-photo-5212648.jpeg?auto=compress&cs=tinysrgb&w=600', 'https://images.pexels.com/photos/5428267/pexels-photo-5428267.jpeg?auto=compress&cs=tinysrgb&w=600', 'https://images.pexels.com/photos/5212336/pexels-photo-5212336.jpeg?auto=compress&cs=tinysrgb&w=600'];
     const prevSlider = () => setCurrentSlider((currentSlider) => currentSlider === 0 ? carouselImages.length - 1 : currentSlider - 1);
     const nextSlider = useCallback(() => setCurrentSlider((currentSlider) => currentSlider === carouselImages.length - 1 ? 0 : currentSlider + 1), [carouselImages.length]);
 

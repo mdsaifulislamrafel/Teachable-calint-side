@@ -5,8 +5,7 @@ const Main = () => {
     return (
         <div>
             <Navbar />
-            <h1>This is a Header</h1>
-            <div className='mt-14'>
+            <div className='mt-6'>
                 <Outlet />
             </div>
             <h4>This is a footer</h4>
