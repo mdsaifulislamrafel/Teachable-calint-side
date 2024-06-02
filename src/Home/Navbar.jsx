@@ -2,6 +2,7 @@
 const Navbar = () => {
   return (
     <div className="navbar static z-40 bg-slate-400 ">
+      <img src="https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg?auto=compress&cs=tinysrgb&w=600" className="w-14 h-14 rounded-full" alt="" />
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Teach:able</a>
       </div>
