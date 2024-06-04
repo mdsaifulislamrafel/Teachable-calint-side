@@ -4,8 +4,8 @@ import {
 import Main from "../Layout/Main";
 import Home from "../Home/Home";
 import Error from "../Home/Error";
-import Login from "../Pages/Signup/Login";
-import Registration from "../Pages/Signup/Registration";
+import Login from "../Components/Login/Login";
+import Registration from "../Components/Registration/Registration";
 
 
 export const router = createBrowserRouter([
