@@ -3,27 +3,22 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { useForm } from "react-hook-form";
 
 const Registration = () => {
-
-
-
     const { createUser, signGoogle, updateprofile } = useContext(AuthContext);
-    const [showPassword, setShowPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
-    console.log(location);
     const navigate = useNavigate();
 
-    const handleRegister = e => {
-        e.preventDefault();
-        const form = new FormData(e.currentTarget);
-        const email = form.get('email');
-        const password = form.get('password');
-        const photo = e.target.photo.value; 
-        const name = e.target.name.value;
-       
-    
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const onSubmit = data => {
+        const { name, email, password, photo } = data;
+
         const uppercaseRegex = /[A-Z]/;
+        const lowercaseRegex = /[a-z]/;
+
         if (!uppercaseRegex.test(password)) {
             Swal.fire({
                 icon: 'error',
@@ -32,16 +27,16 @@ const Registration = () => {
             });
             return;
         }
+
         if (password.length < 6) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Password should contain at least six letter!'
+                text: 'Password should contain at least six letters!'
             });
             return;
         }
 
-        const lowercaseRegex = /[a-z]/;
         if (!lowercaseRegex.test(password)) {
             Swal.fire({
                 icon: 'error',
@@ -53,68 +48,67 @@ const Registration = () => {
 
         createUser(email, password)
             .then(() => {
-                 
-             updateprofile(name, photo)
-                 .then((result) => {
-                    console.log(result?.user);
-                 });
+                updateprofile(name, photo)
+                    .then((result) => {
+                        console.log(result?.user);
+                    });
                 Swal.fire({
                     icon: 'success',
                     title: 'Success!',
                     text: 'Registered successfully!'
                 }).then(() => {
-                    navigate(location?.state ? location.state : '/')
+                    navigate(location?.state ? location.state : '/');
                 });
             })
             .catch(() => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Maybe you are trying by same email!!'
+                    text: 'Maybe you are trying to register with the same email!'
                 });
             });
+
+        reset();
     };
 
     const signInWithGoogle = () => {
-
         signGoogle()
             .then(result => {
-                console.log(result.user)
-                navigate(location?.state ? location.state : '/')
+                console.log(result.user);
+                navigate(location?.state ? location.state : '/');
             })
-
             .catch(error => {
-                console.log(error)
-            })
-    }
+                console.log(error);
+            });
+    };
 
     return (
-        <div data-aos ="zoom-out">
+        <div data-aos="zoom-out">
             <section className="max-w-[1300px] mx-auto mt-6 my-auto">
                 <div>
-                    <form onSubmit={handleRegister} className="mx-auto mb-20 container border mt-28 border-gray-400 w-full max-w-xl p-8 space-y-6 rounded-md shadow">
+                    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mb-20 container border mt-28 border-gray-400 w-full max-w-xl p-8 space-y-6 rounded-md shadow">
                         <h2 className="w-full text-3xl font-bold text-center">Registration Now!</h2>
                         <div>
                             <label htmlFor="name" className="block mb-1 ml-1">Name</label>
                             <input
                                 id="name"
                                 type="text"
-                                name="name"
                                 placeholder="Your name"
-                                required
-                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100  dark:bg-gray-100"
+                                {...register('name', { required: true })}
+                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100 dark:bg-gray-100"
                             />
+                            {errors.name && <p className="text-red-500 text-sm">Name is required</p>}
                         </div>
                         <div>
-                            <label htmlFor="email" className="block mb-1 ml-1">Photo URl</label>
+                            <label htmlFor="photoUrl" className="block mb-1 ml-1">Photo URL</label>
                             <input
                                 id="photoUrl"
                                 type="text"
                                 placeholder="Photo URL"
-                                name="photo"
-                                required
-                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100  dark:bg-gray-100"
+                                {...register('photo', { required: true })}
+                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100 dark:bg-gray-100"
                             />
+                            {errors.photo && <p className="text-red-500 text-sm">Photo URL is required</p>}
                         </div>
                         <div>
                             <label htmlFor="email" className="block mb-1 ml-1">Email</label>
@@ -122,35 +116,32 @@ const Registration = () => {
                                 id="email"
                                 type="email"
                                 placeholder="Your email"
-                                required=""
-                                name="email"
-                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100  dark:bg-gray-100"
+                                {...register('email', { required: true })}
+                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100 dark:bg-gray-100"
                             />
+                            {errors.email && <p className="text-red-500 text-sm">Email is required</p>}
                         </div>
                         <div>
-                            <label htmlFor="name" className="block mb-1 ml-1">Password</label>
-
+                            <label htmlFor="password" className="block mb-1 ml-1">Password</label>
                             <div className="mb-4 relative">
                                 <input
                                     id="password"
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Password"
-                                    required
-                                    name="password"
+                                    {...register('password', { required: true })}
                                     className="block w-full p-2 rounded border border-gray-600 bg-gray-100 dark:bg-gray-100"
                                 />
                                 <span className="absolute top-3 right-5" onClick={() => { setShowPassword(!showPassword) }}>
-                                    {
-                                        showPassword ? <FaRegEye /> : <FaRegEyeSlash />
-                                    }
+                                    {showPassword ? <FaRegEye /> : <FaRegEyeSlash />}
                                 </span>
                             </div>
+                            {errors.password && <p className="text-red-500 text-sm">Password is required</p>}
                         </div>
 
                         <div>
                             <button
                                 type="submit"
-                                className="w-full px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 dark:bg-violet-600 focus:ring-violet-400 focus:dark:ring-violet-600 hover:ring-violet-400 hover:dark:ring-violet-600  text-white"
+                                className="w-full px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 dark:bg-violet-600 focus:ring-violet-400 focus:dark:ring-violet-600 hover:ring-violet-400 hover:dark:ring-violet-600 text-white"
                             >
                                 Register
                             </button>
@@ -168,7 +159,7 @@ const Registration = () => {
                                 </svg>
                             </button>
                             <button aria-label="Log in with GitHub" className="p-3 rounded-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
+                                <svg xmlns="http://www0 .w3.org/2000/svg" viewBox="0 0 32 32" className="w-5 h-5 fill-current">
                                     <path d="M16 0.396c-8.839 0-16 7.167-16 16 0 7.073 4.584 13.068 10.937 15.183 0.803 0.151 1.093-0.344 1.093-0.772 0-0.38-0.009-1.385-0.015-2.719-4.453 0.964-5.391-2.151-5.391-2.151-0.729-1.844-1.781-2.339-1.781-2.339-1.448-0.989 0.115-0.968 0.115-0.968 1.604 0.109 2.448 1.645 2.448 1.645 1.427 2.448 3.744 1.74 4.661 1.328 0.14-1.031 0.557-1.74 1.011-2.135-3.552-0.401-7.287-1.776-7.287-7.907 0-1.751 0.62-3.177 1.645-4.297-0.177-0.401-0.719-2.031 0.141-4.235 0 0 1.339-0.427 4.4 1.641 1.281-0.355 2.641-0.532 4-0.541 1.36 0.009 2.719 0.187 4 0.541 3.043-2.068 4.381-1.641 4.381-1.641 0.859 2.204 0.317 3.833 0.161 4.235 1.015 1.12 1.635 2.547 1.635 4.297 0 6.145-3.74 7.5-7.296 7.891 0.556 0.479 1.077 1.464 1.077 2.959 0 2.14-0.020 3.864-0.020 4.385 0 0.416 0.28 0.916 1.104 0.755 6.4-2.093 10.979-8.093 10.979-15.156 0-8.833-7.161-16-16-16z"></path>
                                 </svg>
                             </button>
@@ -179,11 +170,9 @@ const Registration = () => {
                                 Login
                            </Link>
                         </p>
-
                     </form>
-
-                </div >
-            </section >
+                </div>
+            </section>
         </div>
     );
 };

@@ -1,6 +1,8 @@
 import Banner from "./Banner";
 import Company from "./Company";
 import Feature from "./Feature";
+import Pricing from "./Pricing";
+import Teams from "./Teams";
 
 const Home = () => {
     return (
@@ -8,6 +10,8 @@ const Home = () => {
             <Banner />
             <Company />
             <Feature />
+            <Pricing />
+            <Teams />
         </div>
     );
 };

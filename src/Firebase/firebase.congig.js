@@ -6,16 +6,16 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyC_J-izpXCCwUUrn7O4wkBeFKFAqjzq5a0",
-  authDomain: "houses-for-sale-2f2d6.firebaseapp.com",
-  projectId: "houses-for-sale-2f2d6",
-  storageBucket: "houses-for-sale-2f2d6.appspot.com",
-  messagingSenderId: "159865606719",
-  appId: "1:159865606719:web:690895c6df5fc45bf6de8a"
+  apiKey: "AIzaSyAnwq7P-zdoWx48jgd-1GfAad1dOiT3srU",
+  authDomain: "simple-fire-e17c8.firebaseapp.com",
+  projectId: "simple-fire-e17c8",
+  storageBucket: "simple-fire-e17c8.appspot.com",
+  messagingSenderId: "917600043955",
+  appId: "1:917600043955:web:e9740aefb372f942f201c6"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app); 
+const auth = getAuth(app);
 
 export default auth; 
