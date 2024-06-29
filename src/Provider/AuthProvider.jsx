@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, GoogleAuthProvider, updateProfile, GithubAuthProvider } from "firebase/auth";
 import auth from "../Firebase/firebase.congig";
+import useAxiosPublic from "../hookes/useAxiosPublic";
 
 
 export const AuthContext = createContext(null);
@@ -10,6 +11,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(false);
+    const axiosPublic = useAxiosPublic();
 
     const updateprofile = async (name, photo) => {
         try {
@@ -60,12 +62,26 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
+            if (currentUser) {
+                // get token and store client side for local storage
+                const userInfo = { email: currentUser.email };
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('token', res.data.token);
+                        }
+                    })
+
+            } else {
+                // TODO: remove the token client side for local storage
+                localStorage.removeItem('token');
+            }
             setLoading(false);
         })
         return () => {
             unSubscribe();
         }
-    }, [user?.email])
+    }, [axiosPublic])
 
     const authInfo = {
         user,
