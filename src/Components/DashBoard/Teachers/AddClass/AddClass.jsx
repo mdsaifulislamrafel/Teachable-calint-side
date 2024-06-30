@@ -32,7 +32,7 @@ const AddClass = () => {
                     email: user.email,
                     price: data.price,
                     shortDescription: data.description,
-                    images: res.data.data.display_url,
+                    image: res.data.data.display_url,
                     status: 'pending'
                 }
                 const result = await axiosSecure.post('/classes', teacherItem)
