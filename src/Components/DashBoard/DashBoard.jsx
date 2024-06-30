@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import useAdmin from "../../hookes/useAdmin";
+import useTeacherPosition from "../../hookes/useTeacherPosition";
 
 const DashBoard = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -13,6 +14,7 @@ const DashBoard = () => {
         setIsDrawerOpen(false);
     };
     const [isAdmin] = useAdmin();
+    const [isTeacher] = useTeacherPosition();
 
     return (
         <div className="flex min-h-screen">
@@ -43,6 +45,23 @@ const DashBoard = () => {
                             <li>
                                 <NavLink to="/dashboard/users" onClick={closeDrawer}>
                                     All Users
+                                </NavLink>
+                                <li>
+                                    <NavLink to="/dashboard/profile" onClick={closeDrawer}>
+                                        Profile
+                                    </NavLink>
+                                </li>
+                            </li>
+                            {/* teacher routes */}
+                        </> : isTeacher ? <>
+                            <li>
+                                <NavLink to="/dashboard/addClass" onClick={closeDrawer}>
+                                    Add Class
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/myClass" onClick={closeDrawer}>
+                                    My class
                                 </NavLink>
                                 <li>
                                     <NavLink to="/dashboard/profile" onClick={closeDrawer}>

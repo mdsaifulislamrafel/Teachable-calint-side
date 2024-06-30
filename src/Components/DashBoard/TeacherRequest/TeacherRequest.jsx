@@ -13,7 +13,20 @@ const TeacherRequest = () => {
     if (isPending) {
         return <div className="w-10 h-10 my-5 mx-auto animate-[spin_2s_linear_infinite] rounded-full border-8 border-dotted border-sky-600"></div>;
     }
-    console.log(teacherRequest);
+
+    const handleApprove = async (id) => {
+        const res = await axiosSecure.patch(`/teachers/approved/${id}`);
+        if (res.data.modifiedCount > 0) {
+            refetch();
+        }
+    };
+
+    const handleReject = async (id) => {
+        const res = await axiosSecure.patch(`/teachers/reject/${id}`);
+        console.log(res.data);
+
+    };
+
     return (
         <div>
             <div className="flex justify-evenly">
@@ -21,7 +34,7 @@ const TeacherRequest = () => {
                 <h2 className="text-3xl">Total Request: {teacherRequest.length}</h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 my-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 my-5">
                 {
                     teacherRequest?.map(item => <div key={item._id} className="w-full max-w-[340px] space-y-3 rounded-xl bg-white p-4 font-sans shadow-lg">
                         <div className="relative flex h-48 w-full justify-center lg:h-[260px]">
@@ -35,9 +48,22 @@ const TeacherRequest = () => {
                             <p>Status: {item.status}</p>
                         </div>
                         <div className="flex flex-wrap items-center justify-between gap-6 text-sm md:text-base">
-                            <button className="rounded-lg bg-[#49B2FF] px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600">Approved</button>
-                            <button className="rounded-lg bg-gray-400 px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-95 hover:bg-gray-600">Reject</button>
+                            <button
+                                onClick={() => handleApprove(item._id)}
+                                className="rounded-lg bg-[#49B2FF] px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600"
+                                disabled={item.status === 'reject' || item.status === 'approved'}
+                            >
+                                Approved
+                            </button>
+                            <button
+                                onClick={() => handleReject(item._id)}
+                                className="rounded-lg bg-gray-400 px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-95 hover:bg-gray-600"
+                                disabled={item.status === 'reject' || item.status === 'approved'}
+                            >
+                                Reject
+                            </button>
                         </div>
+
                     </div>)
                 }
             </div>

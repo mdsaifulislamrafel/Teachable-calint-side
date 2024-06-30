@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 const MyEnrollDetails = () => {
     const data = useLoaderData();
     const { title, image, description, price } = data;
-
+    console.log(data);
     return (
         <div className="flex flex-col w-full p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800 ">
             <div className="flex space-x-4">
