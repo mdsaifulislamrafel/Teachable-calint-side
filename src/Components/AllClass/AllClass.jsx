@@ -9,7 +9,7 @@ const AllClass = () => {
             <h2 className="my-20 text-center text-4xl font-bold uppercase underline">All class</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {
-                    allClass?.map(item => <div key={item._id} className="w-full max-w-md space-y-4 rounded-lg bg-white p-5 shadow-lg border">
+                    allClass.filter(i => i.status === 'approve')?.map(item => <div key={item._id} className="w-full max-w-md space-y-4 rounded-lg bg-white p-5 shadow-lg border">
                         <div className="flex flex-col space-y-1.5">
                             <h3 className="text-2xl font-semibold ">{item.title}</h3>
                             <p className="text-sm text-gray-500 dark:text-white/60">Made with genuine leather, our Classic Leather Jacket is the perfect addition to every wardrobe.</p>

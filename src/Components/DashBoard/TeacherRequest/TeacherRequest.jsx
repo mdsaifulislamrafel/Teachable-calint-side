@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hookes/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const TeacherRequest = () => {
     const axiosSecure = useAxiosSecure();
@@ -17,13 +18,29 @@ const TeacherRequest = () => {
     const handleApprove = async (id) => {
         const res = await axiosSecure.patch(`/teachers/approved/${id}`);
         if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your request has been approved",
+                showConfirmButton: false,
+                timer: 1500
+            });
             refetch();
         }
     };
 
     const handleReject = async (id) => {
         const res = await axiosSecure.patch(`/teachers/reject/${id}`);
-        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your request has been rejected",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            refetch();
+        }
 
     };
 
@@ -51,14 +68,14 @@ const TeacherRequest = () => {
                             <button
                                 onClick={() => handleApprove(item._id)}
                                 className="rounded-lg bg-[#49B2FF] px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-105 hover:bg-sky-600"
-                                disabled={item.status === 'reject' || item.status === 'approved'}
+                                disabled={item.status === 'approved'}
                             >
                                 Approved
                             </button>
                             <button
                                 onClick={() => handleReject(item._id)}
                                 className="rounded-lg bg-gray-400 px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-95 hover:bg-gray-600"
-                                disabled={item.status === 'reject' || item.status === 'approved'}
+                                disabled={item.status === 'reject'}
                             >
                                 Reject
                             </button>

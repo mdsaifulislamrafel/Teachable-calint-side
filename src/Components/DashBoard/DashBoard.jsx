@@ -38,8 +38,8 @@ const DashBoard = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/addClass" onClick={closeDrawer}>
-                                    Add Class
+                                <NavLink to="/dashboard/allClasses" onClick={closeDrawer}>
+                                    All Classes
                                 </NavLink>
                             </li>
                             <li>

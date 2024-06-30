@@ -34,7 +34,6 @@ const Navbar = () => {
                   Dashboard
                 </Link>
               </li>
-              <li><a>Settings</a></li>
               <li onClick={signOut}><a>Logout</a></li>
             </ul>
           </div> : <Link to={'/login'}>Sign in</Link>

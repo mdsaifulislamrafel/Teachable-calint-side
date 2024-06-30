@@ -19,6 +19,10 @@ import Users from "../Components/DashBoard/AllUsers/Users";
 import TeacherRequest from "../Components/DashBoard/TeacherRequest/TeacherRequest";
 import AddClass from "../Components/DashBoard/Teachers/AddClass/AddClass";
 import MyClass from "../Components/DashBoard/Teachers/MyClass/MyClass";
+import Update from "../Components/DashBoard/Teachers/Update/Update";
+import MyClassDetails from "../Components/DashBoard/Teachers/MyClassDetails/MyClassDetails";
+import AllClasses from "../Components/DashBoard/AllClasses/AllClasses";
+
 
 
 
@@ -88,6 +92,10 @@ export const router = createBrowserRouter([
                 path: 'users',
                 element: <Users />
             },
+            {
+                path: 'allClasses',
+                element: <AllClasses />
+            },
             // teacher routes
             {
                 path: 'addClass',
@@ -96,6 +104,16 @@ export const router = createBrowserRouter([
             {
                 path: 'myClass',
                 element: <MyClass />
+            },
+            {
+                path: 'update/:id',
+                element: <Update />,
+                loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
+            },
+            {
+                path: 'myClassDetails/:id',
+                element: <MyClassDetails />,
+                loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
             }
         ]
     }
