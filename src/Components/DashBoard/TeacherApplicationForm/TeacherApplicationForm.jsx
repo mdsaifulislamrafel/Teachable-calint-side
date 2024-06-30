@@ -31,7 +31,8 @@ const TeacherApplicationForm = () => {
                     email: data.email,
                     title: data.title,
                     images: res.data.data.display_url,
-                    experience: data.experience
+                    experience: data.experience,
+                    status: 'pending'
                 }
                 const result = await axiosSecure.post('/teachers', teacherItem)
                 if (result.data.insertedId) {

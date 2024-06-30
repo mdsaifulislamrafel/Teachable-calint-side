@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../../hookes/useAdmin";
 
 const DashBoard = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -11,9 +12,10 @@ const DashBoard = () => {
     const closeDrawer = () => {
         setIsDrawerOpen(false);
     };
+    const [isAdmin] = useAdmin();
 
     return (
-        <div className="flex h-screen">
+        <div className="flex min-h-screen">
             {/* Drawer button for smaller screens */}
             <button
                 className="lg:hidden p-4 bg-orange-400 text-white"
@@ -24,31 +26,59 @@ const DashBoard = () => {
             {/* Sidebar */}
             <div className={`fixed lg:relative md:w-64 min-h-screen bg-orange-400 transition-transform duration-300 z-20 ${isDrawerOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
                 <ul className="menu p-4">
-                    <li>
-                        <NavLink to="/dashboard/myEnrollClass" onClick={closeDrawer}>
-                            My Enroll Class
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/profile" onClick={closeDrawer}>
-                            Profile
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/teacherApplicationForm" onClick={closeDrawer}>
-                            Teacher Application Form
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/bookings" onClick={closeDrawer}>
-                            Manage Bookings
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/users" onClick={closeDrawer}>
-                            All Users
-                        </NavLink>
-                    </li>
+
+                    {/* admin routes */}
+                    {
+                        isAdmin ? <>
+                            <li>
+                                <NavLink to="/dashboard/teacherRequest" onClick={closeDrawer}>
+                                    Teacher Request
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/addClass" onClick={closeDrawer}>
+                                    Add Class
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/users" onClick={closeDrawer}>
+                                    All Users
+                                </NavLink>
+                                <li>
+                                    <NavLink to="/dashboard/profile" onClick={closeDrawer}>
+                                        Profile
+                                    </NavLink>
+                                </li>
+                            </li>
+                        </> : <>
+                            {/* user routes */}
+                            <li>
+                                <NavLink to="/dashboard/myEnrollClass" onClick={closeDrawer}>
+                                    My Enroll Class
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/profile" onClick={closeDrawer}>
+                                    Profile
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/teacherApplicationForm" onClick={closeDrawer}>
+                                    Teacher Application Form
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/bookings" onClick={closeDrawer}>
+                                    Manage Bookings
+                                </NavLink>
+                            </li>
+                        </>
+                    }
+
+
+
+
+
                     <div className="divider"></div>
                     <li>
                         <NavLink to="/" onClick={closeDrawer}>

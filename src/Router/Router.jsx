@@ -15,6 +15,9 @@ import MyEnrollClass from "../Components/DashBoard/MyEnrollClass/MyEnrollClass";
 import TeacherApplicationForm from "../Components/DashBoard/TeacherApplicationForm/TeacherApplicationForm";
 import Profile from "../Components/DashBoard/Profile/Profile";
 import MyEnrollDetails from "../Components/DashBoard/MyEnrollDetails/MyEnrollDetails";
+import Users from "../Components/DashBoard/AllUsers/Users";
+import TeacherRequest from "../Components/DashBoard/TeacherRequest/TeacherRequest";
+
 
 
 export const router = createBrowserRouter([
@@ -63,6 +66,7 @@ export const router = createBrowserRouter([
                 path: 'myEnrollClassDetails/:id',
                 element: <PrivateRoute><MyEnrollDetails /></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/carts/${params.id}`)
+                // loader: ({ params }) => fetch(`https://techers-cource.vercel.app/carts/${params.id}`)
 
             },
             {
@@ -72,6 +76,15 @@ export const router = createBrowserRouter([
             {
                 path: 'teacherApplicationForm',
                 element: <TeacherApplicationForm />
+            },
+            // admin routes
+            {
+                path: 'teacherRequest',
+                element: <TeacherRequest />
+            },
+            {
+                path: 'users',
+                element: <Users />
             }
         ]
     }

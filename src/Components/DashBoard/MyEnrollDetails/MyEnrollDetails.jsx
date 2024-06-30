@@ -19,6 +19,9 @@ const MyEnrollDetails = () => {
             </div>
             <div className="flex flex-wrap justify-between">
                 <div className="space-x-2">
+                    <Link to={'/dashboard/myEnrollClass'}><button className="btn btn-secondary">Submit</button></Link>
+                </div>
+                <div className="space-x-2">
                     <Link to={'/dashboard/myEnrollClass'}><button className="btn btn-secondary">Back now</button></Link>
                 </div>
             </div>
