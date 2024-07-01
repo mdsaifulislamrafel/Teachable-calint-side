@@ -72,8 +72,8 @@ export const router = createBrowserRouter([
             {
                 path: 'myEnrollClassDetails/:id',
                 element: <MyEnrollDetails />,
-                loader: ({ params }) => fetch(`http://localhost:5000/carts/${params.id}`)
-                // loader: ({ params }) => fetch(`https://techers-cource.vercel.app/carts/${params.id}`)
+                // loader: ({ params }) => fetch(`http://localhost:5000/carts/${params.id}`)
+                loader: ({ params }) => fetch(`https://techers-cource.vercel.app/carts/${params.id}`)
 
             },
             {
@@ -109,12 +109,12 @@ export const router = createBrowserRouter([
             {
                 path: 'update/:id',
                 element: <Update />,
-                loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
+                loader: ({ params }) => fetch(`https://techers-cource.vercel.app/carts/${params.id}`)
             },
             {
                 path: 'myClassDetails/:id',
                 element: <MyClassDetails />,
-                loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
+                loader: ({ params }) => fetch(`https://techers-cource.vercel.app/carts/${params.id}`)
             },
             {
                 path: 'assignment/:id',
