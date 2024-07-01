@@ -75,7 +75,7 @@ const TeacherRequest = () => {
                             <button
                                 onClick={() => handleReject(item._id)}
                                 className="rounded-lg bg-gray-400 px-4 py-2 font-sans font-semibold text-white duration-300 hover:scale-95 hover:bg-gray-600"
-                                disabled={item.status === 'reject'}
+                                disabled={item.status === 'Reject'}
                             >
                                 Reject
                             </button>

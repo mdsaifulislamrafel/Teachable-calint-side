@@ -22,6 +22,7 @@ import MyClass from "../Components/DashBoard/Teachers/MyClass/MyClass";
 import Update from "../Components/DashBoard/Teachers/Update/Update";
 import MyClassDetails from "../Components/DashBoard/Teachers/MyClassDetails/MyClassDetails";
 import AllClasses from "../Components/DashBoard/AllClasses/AllClasses";
+import Assignment from "../Components/DashBoard/Teachers/Assignment/Assignment";
 
 
 
@@ -114,7 +115,11 @@ export const router = createBrowserRouter([
                 path: 'myClassDetails/:id',
                 element: <MyClassDetails />,
                 loader: ({ params }) => fetch(`http://localhost:5000/classes/${params.id}`)
-            }
+            },
+            {
+                path: 'assignment/:id',
+                element: <Assignment />
+            },
         ]
     }
 ]);

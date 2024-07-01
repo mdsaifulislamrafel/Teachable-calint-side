@@ -79,7 +79,7 @@ const MyClass = () => {
                                             <th className="px-6 py-4 text-start ">{item?.status}</th>
                                             <th className="px-6 py-4 text-start">
                                                 <Link to={`/dashboard/myClassDetails/${item?._id}`}>
-                                                <button type="button" className="px-8 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100">Details</button>
+                                                <button type="button" disabled={item.status !== 'approve'} className="px-8 py-3 font-semibold rounded dark:bg-gray-800 dark:text-gray-100">Details</button>
                                                 </Link>
                                             </th>
                                             <th className="px-6 py-4 text-start">

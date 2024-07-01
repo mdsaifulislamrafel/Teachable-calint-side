@@ -3,6 +3,7 @@ import Company from "./Company";
 import Feature from "./Feature";
 import Pricing from "./Pricing";
 import Teams from "./Teams";
+import TotalReview from "./TotalReview";
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <Company />
             <Feature />
             <Pricing />
+            <TotalReview />
             <Teams />
         </div>
     );

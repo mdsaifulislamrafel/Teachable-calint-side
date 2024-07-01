@@ -86,11 +86,6 @@ const DashBoard = () => {
                                     Teacher Application Form
                                 </NavLink>
                             </li>
-                            <li>
-                                <NavLink to="/dashboard/bookings" onClick={closeDrawer}>
-                                    Manage Bookings
-                                </NavLink>
-                            </li>
                         </>
                     }
 
