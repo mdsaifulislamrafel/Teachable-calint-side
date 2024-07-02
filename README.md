@@ -6,6 +6,8 @@ This is the repository for my awesome website.
 
 ## 🔗 Links
 Live Link :https://teachable-class.netlify.app/
+- Admin email : mdsaifulisalmrafel@gmail.com
+- Admin Password : ;RaFeL@#@#12:
 
 
 ## Features
