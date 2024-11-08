@@ -21,7 +21,7 @@ const Payment = () => {
 
     return (
         <div className="mt-52">
-            <h2 className="my-8 text-4xl uppercase font-bold text-center underline">Payment Process</h2>
+            <h2 className="my-8 text-4xl font-bold text-center underline italic">Payment Process</h2>
             <Elements stripe={stripePromise}>
                 <CheckoutForm classDetails={classDetails} isPending={isLoading} />
             </Elements>
