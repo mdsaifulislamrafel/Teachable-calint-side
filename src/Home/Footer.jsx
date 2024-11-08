@@ -74,6 +74,7 @@ const Footer = () => {
                             placeholder="Email here"
                             className="p-2 border border-gray-600 bg-gray-800 text-white rounded-full focus:outline-none"
                         />
+                        <br />
                         <button className="bg-orange-500 text-white px-4 py-2 rounded-full hover:bg-orange-600">
                             Subscribe Now
                         </button>
