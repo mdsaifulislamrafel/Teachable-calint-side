@@ -5,6 +5,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import useAxiosSecure from "../../hookes/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loading from "../Loading/Loading";
 
 const CheckoutForm = ({ classDetails, isPending }) => {
     const stripe = useStripe();
@@ -14,136 +15,118 @@ const CheckoutForm = ({ classDetails, isPending }) => {
     const [clientSecret, setClientSecret] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useContext(AuthContext);
-    const totalPrice = classDetails?.price;
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
 
     const { image, shortDescription, title, price, _id: id } = classDetails;
 
     useEffect(() => {
-        axiosSecure.post('/create-payment-intent', { price: totalPrice })
+        axiosSecure.post('/create-payment-intent', { price: price })
             .then(res => {
-                console.log('Received client secret:', res.data.clientSecret);
                 setClientSecret(res.data.clientSecret);
             })
             .catch(error => {
-                console.error('Error creating payment intent:', error);
-                setError('Failed to create payment intent. Please try again.');
+                setError('Failed to initiate payment. Please try again.');
             });
-    }, [axiosSecure, totalPrice]);
+    }, [axiosSecure, price]);
 
     if (isPending) {
-        return <div className="w-10 h-10 my-5 mx-auto animate-spin rounded-full border-8 border-dotted border-sky-600"></div>;
+        return <Loading /> ;
     }
 
     const handleSaveData = async () => {
-        const data = {
-            title: title,
-            image: image,
-            description: shortDescription,
-            price: price,
-            email: user?.email,
-            id
-        };
-        const res = await axiosSecure.post('/carts', data)
+        const data = { title, image, description: shortDescription, price, email: user?.email, id };
+        const res = await axiosSecure.post('/carts', data);
         if (res.data.insertedId) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Your work has been saved",
+                title: "Enrollment saved!",
                 showConfirmButton: false,
                 timer: 1500
             });
-            navigate('/dashboard/myEnrollClass')
+            navigate('/dashboard/myEnrollClass');
         }
-
     };
-
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsLoading(true);
 
         if (!stripe || !elements) {
-            setError('Stripe has not loaded yet. Please try again later.');
+            setError('Payment service is not available. Please try again later.');
             setIsLoading(false);
             return;
         }
 
         const card = elements.getElement(CardElement);
-        if (card == null) {
-            setError('Card details not entered. Please enter your card details.');
+        if (!card) {
+            setError('Please enter your card details.');
             setIsLoading(false);
             return;
         }
 
-        const { error: methodError, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card,
-        });
-
+        const { error: methodError, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card });
         if (methodError) {
             setError(methodError.message);
             setIsLoading(false);
             return;
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
             setError('');
         }
 
         if (!clientSecret) {
-            setError('Client secret not set. Please try again.');
+            setError('Payment initialization failed. Please try again.');
             setIsLoading(false);
             return;
         }
 
-
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    email: user?.email || 'anonymous',
-                    name: user?.displayName || 'anonymous',
-                }
-            }
+            payment_method: { card, billing_details: { email: user?.email || 'anonymous', name: user?.displayName || 'anonymous' } }
         });
 
         if (confirmError) {
             setError(confirmError.message);
         } else if (paymentIntent.status === 'succeeded') {
             setTransactionId(paymentIntent.id);
+            handleSaveData();
         } else {
             setError('Payment failed. Please try again.');
         }
-        handleSaveData();
 
         setIsLoading(false);
-    }
+    };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md">
             <CardElement
                 options={{
                     style: {
                         base: {
                             fontSize: '16px',
                             color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
-                            },
+                            '::placeholder': { color: '#aab7c4' },
                         },
-                        invalid: {
-                            color: '#9e2146',
-                        },
+                        invalid: { color: '#9e2146' },
                     },
                 }}
+                className="border p-2 rounded-lg"
             />
-            <button className="btn btn-primary btn-sm my-4" type="submit" disabled={!stripe || !clientSecret || isLoading}>
-                {isLoading ? 'Processing...' : 'Pay'}
+            <button
+                className={`btn btn-primary w-full my-4 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                type="submit"
+                disabled={!stripe || !clientSecret || isLoading}
+            >
+                {isLoading ? (
+                    <div className="flex items-center justify-center">
+                        <div className="loader mr-2"></div> Processing...
+                    </div>
+                ) : (
+                    'Pay'
+                )}
             </button>
-            <p className="text-xl text-red-500">{error}</p>
-            {transactionId && <p className="text-green-600">Your Transaction Id: {transactionId}</p>}
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+            {transactionId && <p className="text-green-600 text-sm mt-2">Transaction ID: {transactionId}</p>}
         </form>
     );
 };

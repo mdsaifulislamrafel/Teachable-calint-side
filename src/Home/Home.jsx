@@ -15,9 +15,9 @@ const Home = () => {
             <Pricing />
             <PopularCategories />
             <BestInstructors />
-            <Feature />
-            <RecentBlogposts />
             <StudentFeedback />
+            <RecentBlogposts />
+            <Feature />
             <TotalReview />
             <FaqSection />
         </div>

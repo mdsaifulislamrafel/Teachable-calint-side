@@ -52,6 +52,7 @@ const StudentFeedback = () => {
                 spaceBetween={30}
                 slidesPerView={1}
                 navigation
+                loop={true}
                 autoplay={{
                     delay: 2000,
                     disableOnInteraction: false,
