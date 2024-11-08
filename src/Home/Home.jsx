@@ -1,19 +1,25 @@
 import Banner from "./Banner";
-import Company from "./Company";
+import BestInstructors from "./BestInstructors";
+import FaqSection from "./FaqSection";
 import Feature from "./Feature";
+import PopularCategories from "./PopularCategories";
 import Pricing from "./Pricing";
-import Teams from "./Teams";
+import RecentBlogposts from "./RecentBlogposts";
+import StudentFeedback from "./StudentFeedback";
 import TotalReview from "./TotalReview";
 
 const Home = () => {
     return (
-        <div className="space-y-5">
+        <div className="space-y-5 mt-24">
             <Banner />
-            <Company />
-            <Feature />
             <Pricing />
+            <PopularCategories />
+            <BestInstructors />
+            <Feature />
+            <RecentBlogposts />
+            <StudentFeedback />
             <TotalReview />
-            <Teams />
+            <FaqSection />
         </div>
     );
 };

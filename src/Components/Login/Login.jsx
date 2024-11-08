@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import Lottie from "lottie-react";
+import login from "../../../public/login.json";
 
 const Login = () => {
     const { signIn } = useContext(AuthContext);
@@ -42,10 +44,13 @@ const Login = () => {
 
     return (
         <div data-aos="zoom-in">
-            <section>
+            <div className="md:flex items-center gap-10 justify-center p-5 mt-10">
                 <div>
-                    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mb-20 container border mt-28 border-gray-400 w-full max-w-xl p-8 space-y-6 rounded-md shadow">
-                        <h2 className="w-full text-3xl font-bold text-center">Log in!</h2>
+                    <Lottie className="md:h-[500px]" animationData={login} />
+                </div>
+                <div>
+                    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mb-20 container border  border-gray-400 w-full max-w-xl p-8 space-y-6 rounded-md shadow">
+                        <h2 className="pb-8 text-center text-3xl font-semibold tracking-tight text-blue-400">Log in!</h2>
                         <div>
                             <label htmlFor="email" className="block mb-1 ml-1">Email</label>
                             <input
@@ -53,7 +58,7 @@ const Login = () => {
                                 type="email"
                                 placeholder="Your email"
                                 {...register('email', { required: true })}
-                                className="block w-full p-2 rounded border border-gray-600 bg-gray-100 dark:bg-gray-100"
+                                className="w-full rounded-lg border border-blue-400 bg-transparent py-2 pl-4 text-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-300/50  dark:text-zinc-400"
                             />
                             {errors.email && <p className="text-red-500 text-sm">Email is required</p>}
                         </div>
@@ -65,7 +70,7 @@ const Login = () => {
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Password"
                                     {...register('password', { required: true })}
-                                    className="block w-full p-2 rounded border border-gray-600 bg-gray-100 dark:bg-gray-100"
+                                    className="w-full rounded-lg border border-blue-400 bg-transparent py-2 pl-4 text-zinc-600 focus:outline-none focus:ring-2 focus:ring-blue-300/50  dark:text-zinc-400"
                                 />
                                 <span className="absolute top-3 right-5" onClick={() => { setShowPassword(!showPassword) }}>
                                     {
@@ -78,7 +83,7 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="w-full px-4 py-2 font-bold rounded shadow focus:outline-none focus:ring hover:ring focus:ring-opacity-50 bg-violet-400 dark:bg-violet-600 focus:ring-violet-400 focus:dark:ring-violet-600 hover:ring-violet-400 hover:dark:ring-violet-600 text-black"
+                                className="uppercase  rounded-lg bg-blue-400 px-6 py-2 font-medium text-white outline-none hover:bg-blue-500 w-full"
                             >
                                 LogIn
                             </button>
@@ -99,7 +104,7 @@ const Login = () => {
                         </p>
                     </form>
                 </div>
-            </section>
+            </div>
         </div>
     );
 };

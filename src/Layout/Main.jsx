@@ -8,7 +8,7 @@ const Main = () => {
     return (
         <div>
             {noHeaderFooter || <Navbar />}
-            <div className='min-h-[calc(100vh-76px)] my-16'>
+            <div className='min-h-[calc(100vh-76px)] '>
                 <Outlet />
             </div>
             {noHeaderFooter || <Footer />}
