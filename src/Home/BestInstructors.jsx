@@ -17,12 +17,12 @@ export default function BestInstructors() {
                 Our Best <span className="text-green-600">Instructor</span>
             </h2>
             <p className="text-gray-500 mt-1">
-                Various versions have evolved over the years, sometimes by accident,
+                Various versions have evolved over the years, sometimes by accident.
             </p>
 
             <Swiper
                 spaceBetween={20}
-                slidesPerView={3}
+                slidesPerView={1}
                 breakpoints={{
                     640: { slidesPerView: 1 },
                     768: { slidesPerView: 2 },
@@ -34,12 +34,11 @@ export default function BestInstructors() {
                 }}
                 modules={[Pagination, Autoplay]}
                 pagination={{ clickable: true }}
-                navigation
                 className="mt-6"
             >
                 {instructors.map((instructor, index) => (
                     <SwiperSlide key={index} className="flex justify-center">
-                        <div className="w-full max-w-sm p-4 bg-white rounded-lg shadow-lg transform transition duration-200 hover:scale-105">
+                        <div className="w-full max-w-xs sm:max-w-sm p-4 bg-white rounded-lg shadow-lg transform transition duration-200 hover:scale-105">
                             <img
                                 src={instructor.imageUrl}
                                 alt={instructor.name}

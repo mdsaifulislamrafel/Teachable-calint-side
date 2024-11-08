@@ -41,19 +41,19 @@ const feedbackData = [
 const StudentFeedback = () => {
     return (
         <div className="flex flex-col items-center py-16 bg-purple-50">
-            <h2 className="text-4xl font-bold text-gray-800 mb-2">
+            <h2 className="text-4xl font-bold text-gray-800 mb-2 text-center">
                 Student <span className="text-blue-600">Feedback</span>
             </h2>
-            <p className="text-gray-500 mb-10 text-center">
+            <p className="text-gray-500 mb-10 text-center max-w-lg">
                 Various versions have evolved over the years, sometimes by accident.
             </p>
 
             <Swiper
                 spaceBetween={30}
-                slidesPerView={3}
+                slidesPerView={1}
                 navigation
                 autoplay={{
-                    delay: 1500,
+                    delay: 2000,
                     disableOnInteraction: false,
                 }}
                 pagination={{ clickable: true }}
@@ -69,20 +69,20 @@ const StudentFeedback = () => {
                         slidesPerView: 3,
                     },
                 }}
-                className="w-full max-w-5xl"
+                className="w-full max-w-5xl px-4"
             >
                 {feedbackData.map((feedback, index) => (
                     <SwiperSlide key={index} className="flex justify-center">
-                        <div className="w-80 h-[380px] p-6 m-2 bg-white rounded-lg shadow-md text-center">
+                        <div className="w-full sm:w-80 h-[380px] p-6 bg-white rounded-lg shadow-md text-center flex flex-col items-center">
                             <img
                                 src={feedback.avatar}
                                 alt={feedback.name}
-                                className="w-16 h-16 mx-auto rounded-full mb-4"
+                                className="w-16 h-16 rounded-full mb-4"
                             />
                             <h3 className="text-xl font-semibold text-gray-800">{feedback.name}</h3>
-                            <p className="text-gray-500 text-sm">{feedback.role}</p>
-                            <p className="text-gray-600 my-4">{feedback.feedback}</p>
-                            <FaQuoteRight size={30} className="text-yellow-400 mx-auto" />
+                            <p className="text-gray-500 text-sm mb-2">{feedback.role}</p>
+                            <p className="text-gray-600 mb-4 flex-grow">{feedback.feedback}</p>
+                            <FaQuoteRight size={30} className="text-yellow-400" />
                         </div>
                     </SwiperSlide>
                 ))}
